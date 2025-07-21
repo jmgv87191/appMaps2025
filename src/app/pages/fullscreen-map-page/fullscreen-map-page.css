@@ -1,7 +1,18 @@
-div{
-    width: 100vw ;
-    height:  calc(100vh - 64px) ;
-    background-color: red;
+.map {
+    width: 100vw;
+    height: calc(100vh - 64px); /* o 100vh si quieres que sea total */
+}
 
+#controls {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+    width: 250px;
 
 }
