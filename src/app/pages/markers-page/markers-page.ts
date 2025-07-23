@@ -2,6 +2,13 @@ import { AfterViewInit, Component, ElementRef, signal, viewChild } from '@angula
 import mapboxgl from 'mapbox-gl'; 
 import { environment } from '../../../environments/environment';
 mapboxgl.accessToken = environment.mapboxkey
+import { v4 as UUIDv4 } from 'uuid'
+
+interface Marker {
+  id: string;
+  mapboxMarker: mapboxgl.Marker;
+}
+
 
 @Component({
   selector: 'app-markers-page',
@@ -13,7 +20,7 @@ export class MarkersPage implements AfterViewInit {
 
   divElement = viewChild<ElementRef>('map')
   map = signal<mapboxgl.Map | null>(null) 
-
+  markers = signal <Marker[]> ([] )
 
 
 
@@ -62,10 +69,19 @@ export class MarkersPage implements AfterViewInit {
     (Math.random() *16 |  0).toString(16)
     )
 
-      const marker = new mapboxgl.Marker({
-      draggable:false, color:color
-    }).setLngLat( coords ).addTo( map )
+      const mapboxMarker = new mapboxgl.Marker({
+        draggable:false, color:color
+      }).setLngLat( coords ).addTo( map )
     
+      const newMarker: Marker ={
+        id: UUIDv4(),
+        mapboxMarker: mapboxMarker
+      }
+
+      // this.markers.set( [newMarkerm, ...this.markers()] )
+      this.markers.update( (markers)=>[ newMarker, ...markers ] )
+
+      console.log(this.markers())
 
   }
 
