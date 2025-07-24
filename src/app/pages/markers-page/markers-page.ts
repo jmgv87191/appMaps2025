@@ -3,6 +3,7 @@ import mapboxgl from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
 mapboxgl.accessToken = environment.mapboxkey
 import { v4 as UUIDv4 } from 'uuid'
+import { JsonPipe } from '@angular/common';
 
 interface Marker {
   id: string;
@@ -12,7 +13,7 @@ interface Marker {
 
 @Component({
   selector: 'app-markers-page',
-  imports: [],
+  imports: [ JsonPipe ],
   templateUrl: './markers-page.html',
   styleUrl: './markers-page.css'
 })
@@ -39,17 +40,6 @@ export class MarkersPage implements AfterViewInit {
       center: [-122.409850, 37.793085], 
       zoom: 14, 
     });
-
-/*     const marker = new mapboxgl.Marker({
-      draggable:false, color:'black'
-    }).setLngLat([-122.409850, 37.793085]).addTo(map)
-     */
-
-
-
-
-
-
 
     this.mapListeners(map);
   }
