@@ -75,5 +75,6 @@ export class MarkersPage implements AfterViewInit {
 
   }
 
+  flyToMarker(){}
 
 }
