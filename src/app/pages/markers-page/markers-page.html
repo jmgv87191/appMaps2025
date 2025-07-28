@@ -9,12 +9,12 @@
         @for (marker of markers(); track marker.id) {
 
 
-            <div class="form-control">
+            <div class="form-control"  >
 
                 <span class="label-text text-black text-sm" >
                     {{ marker.mapboxMarker.getLngLat() | json }}
                 </span>
-                <input
+                <input (click)="flyToMarker( marker.mapboxMarker.getLngLat())"
                     type="radio"
                     name="radio-10" 
                     checked="checked"
@@ -22,8 +22,10 @@
                     
                     [style]="{ backgroundColor: marker.mapboxMarker._color}"
                 />
+
+                <button  class="text-black p-4 btn btn-error  ml-2" (click)="deleteMarker( marker)" >x</button>
+                <hr class="border-t border-gray-300 my-2" />
             </div>
-            
         }@empty {
             <div class="flex justify-center items-center bg-blue-100 rounded-none py-5" >
                 <p class="text-xs text-secondary" >
