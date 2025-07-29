@@ -1,4 +1,4 @@
-import {  AfterViewInit, Component, ElementRef, viewChild } from '@angular/core';
+import {  AfterViewInit, Component, ElementRef, input, viewChild } from '@angular/core';
 import mapboxgl from 'mapbox-gl'; 
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { environment } from '../../../../environments/environment';
@@ -13,7 +13,12 @@ mapboxgl.accessToken = environment.mapboxkey
   templateUrl: './mini-map.html',
   styleUrl: './mini-map.css'
 })
+
 export class MiniMap implements AfterViewInit  {
+
+  divElement = viewChild<ElementRef>('map')
+  lngLat = input.required< { lng:number, lat: number } >()
+  zoom = input<number>(14);
 
   async ngAfterViewInit() {
 
@@ -27,17 +32,17 @@ export class MiniMap implements AfterViewInit  {
     const map = new mapboxgl.Map({
       container: element, 
       style: 'mapbox://styles/mapbox/streets-v12', 
-      center: [-74.5, 40], 
-      zoom: 8, 
+      center: this.lngLat(), 
+      zoom: this.zoom(),
+      interactive:false
     });
 
       const mapboxMarker = new mapboxgl.Marker({
         draggable:false,
-      }).setLngLat( [-74.5, 40] ).addTo( map )
+      }).setLngLat( this.lngLat()).addTo( map )
     
   }
 
-  divElement = viewChild<ElementRef>('map')
 
 
 }
